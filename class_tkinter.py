@@ -12,10 +12,11 @@ class Application(tk.Frame):
 
     def create_widgets(self):
         index = 0
-        lista_de_usbs = GetModelUSB().init()
+        lista_de_usbs = sql().get_table()
+        lista_de_usbs.pop()
         for usbs in lista_de_usbs:
             self.usb = tk.Button(self)
-            self.usb["text"] = usbs
+            self.usb["text"] = usbs[1]
             cada_drive = [index, usbs]
             self.usb["command"] = lambda lusb = cada_drive: self.acao_botao(lusb)
             self.usb.pack(side="top")
@@ -25,12 +26,11 @@ class Application(tk.Frame):
                               command=self.master.destroy)
         self.quit.pack(side="bottom")
 
-    def acao_botao(self, model_usb):
-        lista_serial_USB = GetSerialUSB().init()
-        print(model_usb, lista_serial_USB[model_usb[0]])
 
-        print(f"Inserindo {model_usb[0]}, {model_usb[1]}, {lista_serial_USB[model_usb[0]]}")
-        sql().insert(model_usb[0], model_usb[1], lista_serial_USB[model_usb[0]])
+
+    def acao_botao(self, usb):
+        print(f"Atualizando status do modelo => {usb[1][1]} com serial {usb[1][2]}")
+        sql().update_status_usb(usb[1])
 
 
 root = tk.Tk()

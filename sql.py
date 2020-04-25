@@ -74,7 +74,7 @@ class sql_db():
         for count in range(0, len(lista_de_seriais)):
             if serial in lista_de_seriais:
                 print("==============", "ENCONTRADO E PULANDO SERIAL", serial, "============")
-                pass
+                break
 
             else:
                 print("SERIAL NÃO ENCONTRADO")
@@ -86,5 +86,34 @@ class sql_db():
 
                     print("Valores inseridos no banco de dados")
 
+                    break
+
                 except:
-                    pass
+                    print("Algum erro ocorreu e deu um except")
+
+    def get_table(self):
+        lista = []
+        con = self.connect()
+        cursor = con.cursor()
+        cursor.execute('SELECT * FROM usbs')
+        tabela_usbs = cursor.fetchall()
+
+        for usb in tabela_usbs:
+            lista.append(usb)
+
+        return lista
+
+    def update_status_usb(self, usb):
+        con = self.connect()
+        cursor = con.cursor()
+
+        if usb[3] == 0:
+            ativo = 1
+        elif usb[3] == 1:
+            ativo = 0
+        else:
+            print("ops...")
+
+        cursor.execute(f"UPDATE usbs SET activate = {ativo} where id = {usb[0]}")
+        con.commit()
+        print(f"Mudado o status para {ativo}")
