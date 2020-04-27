@@ -1,6 +1,4 @@
 import tkinter as tk
-from class_get_model import GetModelUSB
-from class_get_serial import GetSerialUSB
 from sql import sql_db as sql
 
 class Application(tk.Frame):
@@ -8,30 +6,32 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.pack()
-        self.create_widgets()
-
-    def create_widgets(self):
         index = 0
         lista_de_usbs = sql().get_table()
         lista_de_usbs.pop()
         for usbs in lista_de_usbs:
-            self.usb = tk.Button(self)
-            self.usb["text"] = usbs[1]
+            list(usbs)
             cada_drive = [index, usbs]
-            self.usb["command"] = lambda lusb = cada_drive: self.acao_botao(lusb)
-            self.usb.pack(side="top")
+            self.create_widgets(cada_drive)
+
             index = index + 1
 
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
+        self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
         self.quit.pack(side="bottom")
 
+    def create_widgets(self, usbs):
+        btn = tk.Button(self)
+        btn["text"] = usbs[1][1]
+        btn["command"] = lambda:[btn.destroy(), self.create_widgets(self.acao_botao(usbs))]
 
+        btn.pack()
 
     def acao_botao(self, usb):
         print(f"Atualizando status do modelo => {usb[1][1]} com serial {usb[1][2]}")
-        sql().update_status_usb(usb[1])
+        ativo = sql().update_status_usb(usb[1])
 
+        novos_dados = [usb[0], (usb[1][0], usb[1][1], usb[1][2], ativo)]
+        return novos_dados
 
 root = tk.Tk()
 app = Application(master=root)

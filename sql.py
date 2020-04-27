@@ -117,3 +117,5 @@ class sql_db():
         cursor.execute(f"UPDATE usbs SET activate = {ativo} where id = {usb[0]}")
         con.commit()
         print(f"Mudado o status para {ativo}")
+
+        return ativo
