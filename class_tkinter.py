@@ -6,32 +6,27 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.pack()
-        index = 0
         lista_de_usbs = sql().get_table()
         lista_de_usbs.pop()
         for usbs in lista_de_usbs:
-            list(usbs)
-            cada_drive = [index, usbs]
-            self.create_widgets(cada_drive)
-
-            index = index + 1
+            usbs = list(usbs)
+            self.create_widgets(usbs)
 
         self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
         self.quit.pack(side="bottom")
 
     def create_widgets(self, usbs):
         btn = tk.Button(self)
-        btn["text"] = usbs[1][1]
-        btn["command"] = lambda:[btn.destroy(), self.create_widgets(self.acao_botao(usbs))]
+        btn["text"] = usbs[1]
+        btn["command"] = lambda: [btn.destroy(), self.create_widgets(self.acao_botao(usbs))]
 
         btn.pack()
 
     def acao_botao(self, usb):
-        print(f"Atualizando status do modelo => {usb[1][1]} com serial {usb[1][2]}")
-        ativo = sql().update_status_usb(usb[1])
+        print(f"Atualizando status do modelo => {usb[1]} com serial {usb[2]}")
+        usb[3] = sql().update_status_usb(usb)
 
-        novos_dados = [usb[0], (usb[1][0], usb[1][1], usb[1][2], ativo)]
-        return novos_dados
+        return usb
 
 root = tk.Tk()
 app = Application(master=root)

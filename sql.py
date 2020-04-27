@@ -108,14 +108,14 @@ class sql_db():
         cursor = con.cursor()
 
         if usb[3] == 0:
-            ativo = 1
+            usb[3] = 1
         elif usb[3] == 1:
-            ativo = 0
+            usb[3] = 0
         else:
             print("ops...")
 
-        cursor.execute(f"UPDATE usbs SET activate = {ativo} where id = {usb[0]}")
+        cursor.execute(f"UPDATE usbs SET activate = {usb[3]} where id = {usb[0]}")
         con.commit()
-        print(f"Mudado o status para {ativo}")
+        print(f"Mudado o status para {usb[3]}")
 
-        return ativo
+        return usb[3]
