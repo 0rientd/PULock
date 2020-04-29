@@ -1,5 +1,8 @@
 import tkinter as tk
 from sql import sql_db as sql
+from scan_drives import Class_Scan_Drives
+
+Class_Scan_Drives().scan_and_save_drives()
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -8,6 +11,7 @@ class Application(tk.Frame):
         self.pack()
         lista_de_usbs = sql().get_table()
         lista_de_usbs.pop()
+        print(lista_de_usbs)
         for usbs in lista_de_usbs:
             usbs = list(usbs)
             self.create_widgets(usbs)
