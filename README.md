@@ -16,7 +16,7 @@ Projeto para criar um software onde seus USBs servem de chave física para acess
 - [X] Melhorar layout
 - [X] Melhorar código (precisa de mais)
 - [ ] Trocar variavéis tudo para inglês
-- [ ] Organizar arquivos
+- [X] Organizar arquivos
 - [X] Melhorar layout
 - [ ] Adicionar gif animado como fundo 
 

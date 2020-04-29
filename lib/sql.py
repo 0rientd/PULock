@@ -9,23 +9,23 @@ class sql_db():
 
         my_db = Path("PULock.db")
         if my_db.is_file():
-            print("Banco de dados encontrado")
+            print("Database has found")
             pass
 
         else:
-            print("Criando arquivo de banco de dados")
+            print("Creating database")
             con = sqlite3.connect("PULock.db")
-            print("Criado DB com sucesso")
+            print("Database created successful")
             self.create_table(con)
 
         try:
-            print("Conectando ao banco..")
+            print("Connecting in database..")
             con = sqlite3.connect("PULock.db")
-            print("Conectado com sucesso!")
+            print("Connection successful")
             return con
 
         except:
-            print("Não pode se conectar ao banco de dados")
+            print("Can't connect in database :(")
 
     def create_table(self, con):
         cursor = con.cursor()
@@ -33,34 +33,34 @@ class sql_db():
         cursor.execute("INSERT INTO usbs VALUES(9999, 'IGNORE', 'IGNORE', 0)")
         con.commit()
 
-        print("Criado entidade modelo com sucesso")
+        print("Created entity successful")
 
-    def verificar_ids(self):
+    def verify_ids(self):
         count = 0
         con = self.connect()
         cursor = con.cursor()
         cursor.execute('SELECT id FROM usbs')
         linhas = cursor.fetchall()
         for count in range(0, len(linhas)):
-            print("Quantidade de IDS => ", count)
+            print("Numbers of IDS => ", count)
 
         return count
 
-    def verificar_serial(self):
+    def verify_serial(self):
         count = 0
-        lista_de_seriais = []
+        serial_list = []
         con = self.connect()
         cursor = con.cursor()
         cursor.execute('SELECT serial FROM usbs')
         serials = cursor.fetchall()
 
         for serial in serials:
-            print("verificar_serial => Verificando o serial => ", serial)
-            lista_de_seriais.append(serial[count])
+            print("verify_serial => Verifying serial => ", serial)
+            serial_list.append(serial[count])
 
-        return lista_de_seriais
+        return serial_list
 
-    def insert(self, id, modelo, serial):
+    def insert(self, id, model, serial):
         con = self.connect()
         cursor = con.cursor()
 
@@ -68,40 +68,40 @@ class sql_db():
             id = int(id)
             id = id + 1
 
-        ids_from_table = self.verificar_ids()
-        lista_de_seriais = self.verificar_serial()
+        ids_from_table = self.verify_ids()
+        serial_list = self.verify_serial()
 
-        for count in range(0, len(lista_de_seriais)):
-            if serial in lista_de_seriais:
-                print("==============", "ENCONTRADO E PULANDO SERIAL", serial, "============")
+        for count in range(0, len(serial_list)):
+            if serial in serial_list:
+                print("==============", "THIS SERIAL => ", serial, "HAS FOUND | SKIPPING", "============")
                 break
 
             else:
-                print("SERIAL NÃO ENCONTRADO")
+                print("SERIAL NOT FOUND")
                 try:
-                    id_a_adicionar = id + ids_from_table
-                    print("Adicionando id ", id_a_adicionar, "Modelo => ", modelo, "Com serial ", serial)
-                    cursor.execute(f"INSERT INTO usbs VALUES({id_a_adicionar}, '{modelo}', '{serial}', 0)")
+                    id_to_add = id + ids_from_table
+                    print("Adding id ", id_to_add, "Model => ", model, "Serial ", serial)
+                    cursor.execute(f"INSERT INTO usbs VALUES({id_to_add}, '{model}', '{serial}', 0)")
                     con.commit()
 
-                    print("Valores inseridos no banco de dados")
+                    print("Insert has been successful")
 
                     break
 
                 except:
-                    print("Algum erro ocorreu e deu um except")
+                    print("Something wrong happened and returned the except")
 
     def get_table(self):
-        lista = []
+        table_list = []
         con = self.connect()
         cursor = con.cursor()
         cursor.execute('SELECT * FROM usbs')
-        tabela_usbs = cursor.fetchall()
+        usbs_table = cursor.fetchall()
 
-        for usb in tabela_usbs:
-            lista.append(usb)
+        for usb in usbs_table:
+            table_list.append(usb)
 
-        return lista
+        return table_list
 
     def update_status_usb(self, usb):
         con = self.connect()
@@ -112,10 +112,10 @@ class sql_db():
         elif usb[3] == 1:
             usb[3] = 0
         else:
-            print("ops...")
+            print("Ops...")
 
         cursor.execute(f"UPDATE usbs SET activate = {usb[3]} where id = {usb[0]}")
         con.commit()
-        print(f"Mudado o status para {usb[3]}")
+        print(f"Changing the status to {usb[3]}")
 
         return usb[3]

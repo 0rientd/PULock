@@ -1,4 +1,4 @@
-from class_tkinter import Application
+from lib.class_tkinter import Application
 
 def main():
 
