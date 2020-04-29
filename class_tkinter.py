@@ -3,6 +3,7 @@ from sql import sql_db as sql
 from scan_drives import Class_Scan_Drives
 
 Class_Scan_Drives().scan_and_save_drives()
+bg = "#F7F5D0"
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -17,20 +18,20 @@ class Application(tk.Frame):
             self.create_widgets(usbs)
 
         self.texto = tk.Label(self, text="GREEN is activated and RED is deactivated",
-                              font=("Calibri", "8", "bold"), bg="#61656E", fg="purple")
+                              font=("Calibri", "9"), bg=bg, fg="#CB5BFF")
         self.texto.pack(side="bottom")
 
-        self.quit = tk.Button(self, text="SAIR", fg="cyan", command=self.master.quit)
+        self.quit = tk.Button(self, text="SAIR", fg="#49B3D1", command=self.master.quit)
         self.quit["font"] = ("Calibri", "11", "bold")
-        self.quit["bg"] = "grey"
+        self.quit["bg"] = "#D2D2D2"
         self.quit.pack(side="bottom", pady=50)
 
     def create_widgets(self, usbs):
         btn = tk.Button(self)
         if usbs[3] == 1:
-            btn["fg"] = "green"
+            btn["fg"] = "#3DCD67"
         else:
-            btn["fg"] = "red"
+            btn["fg"] = "#E93737"
         btn["text"] = usbs[1]
         btn["command"] = lambda: [btn.destroy(), self.create_widgets(self.acao_botao(usbs))]
         btn["font"] = ("Calibri", "11", "bold")
@@ -46,9 +47,9 @@ class Application(tk.Frame):
         return usb
 
 root = tk.Tk()
-root.configure(background = '#61656E')
+root.configure(background = bg)
 app = Application(master=root)
-app.configure(background = '#61656E')
+app.configure(background = bg)
 app.master.title("PULock")
 app.master.minsize(400, 250)
 
