@@ -10,9 +10,15 @@ Projeto para criar um software onde seus USBs servem de chave física para acess
 - [ ] Fazer o scan executar junto com o sistema
 - [X] Ao iniciar o main.py procurar se existe arquivo de banco de dados. (usar pathlib)
 - [X] Adicionar/Atualizar no banco de dados todos os drives assim que o main.py é iniciado
-- [ ] Fazer os botões de cada drive mudar para ativo ou não ativo.
-- [ ] Fazer os botões mudarem de cor quando ativados ou desativados (talvez usar o pack novamente)
-- [ ] Fazer o scan.py procurar pelos seriais e status de ativo ou não ativo de cada id (não sei se necessário)
+- [X] Fazer os botões de cada drive mudar para ativo ou não ativo.
+- [X] Fazer os botões mudarem de cor quando ativados ou desativados (talvez usar o pack novamente)
 - [ ] Fazer um "instalador"
+- [X] Melhorar layout
+- [X] Melhorar código (precisa de mais)
+- [ ] Trocar variavéis tudo para inglês
+- [ ] Organizar arquivos
+- [X] Melhorar layout
+- [ ] Adicionar gif animado como fundo 
+
 
 ----------------
