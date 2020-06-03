@@ -22,6 +22,5 @@ def scan_to_lock():
 
     sleep(1)
     scan_to_lock()
-    # comment
 
 scan_to_lock()
