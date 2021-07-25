@@ -1,6 +1,6 @@
 <h1>PULock (Python USB Locker)</h1>
 
-Projeto para criar um software onde seus USBs servem de chave física para acesso ao seu computador.
+Projeto para criar um software onde seus Pendrives servem de chave física para acesso ao seu computador.
 
 ----------------
 
@@ -22,3 +22,5 @@ Projeto para criar um software onde seus USBs servem de chave física para acess
 
 
 ----------------
+
+<h2>TESTADO COM WINDOWS10</h2>
